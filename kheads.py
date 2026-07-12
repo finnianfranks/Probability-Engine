@@ -1,12 +1,16 @@
 """
 This file goes into different probabilistic metrics for flipping a coin and getting k heads in a row. Subsequently this is also flipping a coin and getting k tails in a row because 
-of the symetry between heads and tails on a fair. Diverging from that though, we allow the user to parameterize the coin such it does not necessarily have to be fair and can instead
+of the symmetry between heads and tails on a fair coin. Diverging from that though, we allow the user to parameterize the coin such that it does not necessarily have to be fair and can instead
 favor one side more than the other. For example, a coin that lands heads 70% of the time while only landing tails 30% of the time. 
 
 Within this file we use NumPy to perform systems of equations calculations. The logic is explained within the respective code.
+
+After mathematically determining expected value we use monte carlo simulation to find simulated expected value.
 """
 from enum import Enum # the Enum class has not been used yet
 import numpy as np
+import random
+import matplotlib.pyplot as pyplot
 
 
 def expectedk(k, oddsHeads = .5):
@@ -50,10 +54,54 @@ def expectedk(k, oddsHeads = .5):
     solution = np.linalg.solve(A, b)
     solution = solution[0] # we are only interested in the solution to E_0 since this is the expected value we are calculating
     solution = round(solution, 2)
-    print(f"The expected number of flips required to achieve {k} consecutive heads is {solution}")
+    print(f"The mathematical expected number of flips required to achieve {k} consecutive heads is {solution}")
+
+
+def simulationEV(numHeads, oddsHeads=.5): # let 1 be heads and 2 be tails
+    countTot = 0
+    countHeads = 0
+    outcomes = [1,2]
+    weights = [oddsHeads, 1-oddsHeads]
+    while countHeads < numHeads:
+        flip = random.choices(outcomes, weights=weights, k=1)[0]
+        if flip == 1:
+            countHeads += 1
+        elif flip == 2:
+            countHeads = 0
+        countTot += 1
+    return countTot
+
+def runSim(times, numHeads, oddsHeads = .5):
+    res = []
+    for i in range(times):
+        toAp = simulationEV(numHeads, oddsHeads)
+        res.append(toAp)
+    return res
+    
+def constructHistogram(toPlot, numHeads, oddsHeads = .5):
+    pyplot.hist(toPlot, bins=20, edgecolor="black")
+    pyplot.xlabel("Number of Flips Needed")
+    pyplot.ylabel("Frequency")
+    pyplot.title(f"Flips needed to get {numHeads} consecutive heads on a coin which favors heads {oddsHeads * 100}% of the time")
+    pyplot.show()
+            
+
+
+
     
 def main():
-    expectedk(4, .5)
+    numHeads = 3
+    oddsHeads = .5
+    expectedk(numHeads, oddsHeads)
+    simRes = simulationEV(numHeads, oddsHeads)
+    print(f"the simulation under 1 trail said it takes {simRes} flips to get 3 consecutive heads")
+    timesToRunSim = 1000
+    print(f"Let's see what happens when we run the simulation {timesToRunSim} times")
+    fromSim = runSim(timesToRunSim, 3, oddsHeads)
+    print(f"From simulation the average amount of times it takes to flip a fair coin and get {numHeads} heads is {sum(fromSim)/len(fromSim)} flips")
+    print("here is how the data appears on a histogram")
+    constructHistogram(fromSim, 3, oddsHeads)
+
 
     
 
