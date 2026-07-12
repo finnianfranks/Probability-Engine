@@ -79,7 +79,7 @@ def runSim(times, numHeads, oddsHeads = .5):
     return res
     
 def constructHistogram(toPlot, numHeads, oddsHeads = .5):
-    pyplot.hist(toPlot, bins=20, edgecolor="black")
+    pyplot.hist(toPlot, bins=100, edgecolor="black")
     pyplot.xlabel("Number of Flips Needed")
     pyplot.ylabel("Frequency")
     pyplot.title(f"Flips needed to get {numHeads} consecutive heads on a coin which favors heads {oddsHeads * 100}% of the time")
@@ -90,17 +90,17 @@ def constructHistogram(toPlot, numHeads, oddsHeads = .5):
 
     
 def main():
-    numHeads = 3
-    oddsHeads = .5
+    numHeads = 7
+    oddsHeads = 1/3
     expectedk(numHeads, oddsHeads)
     simRes = simulationEV(numHeads, oddsHeads)
     print(f"the simulation under 1 trail said it takes {simRes} flips to get 3 consecutive heads")
     timesToRunSim = 1000
     print(f"Let's see what happens when we run the simulation {timesToRunSim} times")
-    fromSim = runSim(timesToRunSim, 3, oddsHeads)
+    fromSim = runSim(timesToRunSim, numHeads, oddsHeads)
     print(f"From simulation the average amount of times it takes to flip a fair coin and get {numHeads} heads is {sum(fromSim)/len(fromSim)} flips")
     print("here is how the data appears on a histogram")
-    constructHistogram(fromSim, 3, oddsHeads)
+    constructHistogram(fromSim, numHeads, oddsHeads)
 
 
     
