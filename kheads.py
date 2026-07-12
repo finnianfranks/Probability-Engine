@@ -50,10 +50,10 @@ def expectedk(k, oddsHeads = .5):
     solution = np.linalg.solve(A, b)
     solution = solution[0] # we are only interested in the solution to E_0 since this is the expected value we are calculating
     solution = round(solution, 2)
-    print(solution)
+    print(f"The expected number of flips required to achieve {k} consecutive heads is {solution}")
     
 def main():
-    expectedk(3, .5)
+    expectedk(4, .5)
 
     
 
