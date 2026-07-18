@@ -90,8 +90,11 @@ def constructHistogram(toPlot, numHeads, oddsHeads = .5):
 
     
 def main():
-    numHeads = 7
-    oddsHeads = 1/3
+    numHeads = 5
+    if numHeads < 2:
+        print("invalid number of heads. You likely entered an edge case, please try again")
+        return
+    oddsHeads = .9
     expectedk(numHeads, oddsHeads)
     simRes = simulationEV(numHeads, oddsHeads)
     print(f"the simulation under 1 trail said it takes {simRes} flips to get 3 consecutive heads")
