@@ -6,6 +6,11 @@ favor one side more than the other. For example, a coin that lands heads 70% of 
 Within this file we use NumPy to perform systems of equations calculations. The logic is explained within the respective code.
 
 After mathematically determining expected value we use monte carlo simulation to find simulated expected value.
+
+Next Steps:
+Perhaps a good extension that I will look to implement next is extending this project to a die that can have it's weight and number of sides changed because right now we are constrained
+technically to a two sided dice. 
+I also want to add a function that looks at the probability of if taking a certain number of flips to get a certain number of heads in a row or something like that.
 """
 from enum import Enum # the Enum class has not been used yet
 import numpy as np
@@ -60,25 +65,25 @@ def expectedk(k, oddsHeads = .5):
 def simulationEV(numHeads, oddsHeads=.5): # let 1 be heads and 2 be tails
     countTot = 0
     countHeads = 0
-    outcomes = [1,2]
+    outcomes = [1,2] # in this line and the next we are setting up the probability (weight) of landing a heads with the 'random' library syntax
     weights = [oddsHeads, 1-oddsHeads]
     while countHeads < numHeads:
         flip = random.choices(outcomes, weights=weights, k=1)[0]
-        if flip == 1:
+        if flip == 1: # we assign the variable 1 to be a head and the number 2 to be a tail
             countHeads += 1
         elif flip == 2:
             countHeads = 0
         countTot += 1
     return countTot
 
-def runSim(times, numHeads, oddsHeads = .5):
+def runSim(times, numHeads, oddsHeads = .5): # we use monte-carlo simulation here to calculate our expected value
     res = []
     for i in range(times):
         toAp = simulationEV(numHeads, oddsHeads)
         res.append(toAp)
     return res
     
-def constructHistogram(toPlot, numHeads, oddsHeads = .5):
+def constructHistogram(toPlot, numHeads, oddsHeads = .5): # using pyplot we construct a histogram which feels like the natural form of expression for a project of this sort.
     pyplot.hist(toPlot, bins=100, edgecolor="black")
     pyplot.xlabel("Number of Flips Needed")
     pyplot.ylabel("Frequency")
@@ -94,7 +99,13 @@ def main():
     if numHeads < 2:
         print("invalid number of heads. You likely entered an edge case, please try again")
         return
-    oddsHeads = .9
+    oddsHeads = .5
+    if oddsHeads == 0:
+        print("The coin will never land heads when the odds of heads are 0. Try inputting a more logical odds for the heads")
+        return
+    if oddsHeads < 0 or oddsHeads > 1:
+        print(f"The odds for heads you entered of {oddsHeads} is out of the rational range for the chances of a coin landing heads. You like inputed a number less than 0 or greater than 1")
+        return
     expectedk(numHeads, oddsHeads)
     simRes = simulationEV(numHeads, oddsHeads)
     print(f"the simulation under 1 trail said it takes {simRes} flips to get 3 consecutive heads")
