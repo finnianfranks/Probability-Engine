@@ -9,7 +9,7 @@ After mathematically determining expected value we use monte carlo simulation to
 
 Next Steps:
 Perhaps a good extension that I will look to implement next is extending this project to a die that can have it's weight and number of sides changed because right now we are constrained
-technically to a two sided dice. 
+technically to a two sided die. 
 I also want to add a function that looks at the probability of if taking a certain number of flips to get a certain number of heads in a row or something like that.
 """
 from enum import Enum # the Enum class has not been used yet
