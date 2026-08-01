@@ -5,3 +5,6 @@ kHeads.py:
 In this file we begin by taking a coin and mathematically finding the average number of flips it would take to see k heads in a row. We do this using NumPy and utilizing the linear algebra portion of the library to set up the reccurence relation in order to find such an expected value. This offers insight in converting the math which can feel intuitive, to code that has to work for every case and therefore must follow some sort of pattern/predictable sequence. We then extend the project further by allowing the coin to be unfair--so weighting the probability of heads different from tails. After this we then derive the expected value through simulation to see if our mathematical and simulated answer corrospond. We find that they do and following this we print a graph of the simulation in order to see the visualization of our experiment.
 Next steps...
 Next I look to calculate the probability that it takes X number of flips in order to get K heads in a row. For example, "the probability that it takes 5 flips to get 3 heads in a row on coin that favors heads 2/3's of the time". Stay tuned with the project to see updates about this.
+
+For more information on some of the problems solved here visit the corrosponding substack with article proofs and walkthroughs attache below:
+[text](https://substack.com/@finnianfranks)
