@@ -24,6 +24,7 @@ def eX(i,p,N): # This function will calculate the expected number of attempts it
     solution = np.linalg.solve(a, b)
     return solution[i]
 
+
     
 
 
