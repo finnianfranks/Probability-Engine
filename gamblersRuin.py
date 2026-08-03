@@ -31,7 +31,7 @@ def eX(i,p,N): # This function will calculate the expected number of attempts it
 
 def main():
     print(playGame(5, .5, 10))
-    print(eX(5, .5, 10))
+    print(eX(5, .4, 10))
 
 if __name__ == "__main__":
     main()
