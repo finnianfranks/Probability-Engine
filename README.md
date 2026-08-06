@@ -8,3 +8,5 @@ Next I look to calculate the probability that it takes X number of flips in orde
 
 For more information on some of the problems solved here visit the corrosponding substack with article proofs and walkthroughs attache below:
 [text](https://substack.com/@finnianfranks)
+
+I am marking the conclusion of this project at 5 worthwhile probability questions. After that I will re-evaluate wether it is worth doing more in this framework.
