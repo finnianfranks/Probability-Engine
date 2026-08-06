@@ -27,10 +27,6 @@ def eX(i,p,N): # This function will calculate the expected number of attempts it
     solution = np.linalg.solve(a, b)
     return solution[i] # this is the state we were interested in at the beggining of the function
 
-<<<<<<< HEAD
-
-    
-=======
 def gameEndsInTRounds(i, p, N, t): # this is the function which defines the probability that the game would end in t rounds, it defines the event P(T=t)
     state = [0] * (N + 1)
     state[i] = 1 # this is the state that we are in right now
@@ -73,7 +69,6 @@ def simEX(trials, i, p, N): # this is the pretty general monte-carlo simulation
                 at -= 1
         res.append(count)
     return sum(res)/trials
->>>>>>> gamblers_ruin
 
 
 
