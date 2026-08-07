@@ -6,6 +6,9 @@ In this file we begin by taking a coin and mathematically finding the average nu
 Next steps...
 Next I look to calculate the probability that it takes X number of flips in order to get K heads in a row. For example, "the probability that it takes 5 flips to get 3 heads in a row on coin that favors heads 2/3's of the time". Stay tuned with the project to see updates about this.
 
+gamblersRuin.py:
+In this file we look at an important problem of probability known as the gamblers ruin problem. The problem has a complicated solution which requires a longer proof and is provided on the substack. In the file to calculate the probability that we beat the game, starting at i, we use the final formula derived from the proof. After that we take a look at the average amount of rounds the game must be played in order to be completed--that is the player reaches 0 or reaches N. We do this using the same type of first step analysis and linalg as in kheads.py. After that we calculate the probability that the game ends in t rounds which sort of extends what we were examining with the expected value calculation before hand. after this we run our experiment under a montecarlo simulation to verify our expected value calculation. 
+
 For more information on some of the problems solved here visit the corrosponding substack with article proofs and walkthroughs attache below:
 [text](https://substack.com/@finnianfranks)
 

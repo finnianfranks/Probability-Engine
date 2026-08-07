@@ -1,7 +1,10 @@
 """
 This is the code document dedicated to the modeling of gamblers ruin through code
-Next I need to design the simulation.
+Next I need to design the simulation. Simulation has been designed.
 
+The next step I can take in the gamblers ruin file is to calculate the expected number of trials it takes to win. That is equivalent to the expected number of trials 
+it takes to reach N given that we do not reach 0 first. This question is a matter of conditional expectation and as such will require a new sort of calculation that I am not completely 
+familiar with.
 """
 import numpy as np
 import random as rd
