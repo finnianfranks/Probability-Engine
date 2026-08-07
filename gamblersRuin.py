@@ -75,6 +75,7 @@ def simEX(trials, i, p, N): # this is the pretty general monte-carlo simulation
 
 
 
+
             
         
         
