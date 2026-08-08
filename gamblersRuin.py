@@ -49,7 +49,27 @@ def gameEndsInTRounds(i, p, N, t): # this is the function which defines the prob
         state = newState
         count += 1
     return state[0] + state[N] # the beggining and end combined is the probability that the game ends in this amount of moves
-                                # if we wanted to take it further we could have just looked at state[N] to see the probability the game is 'won' in t moves.
+                                # if we wanted to take it further we could have just looked at state[N] to see the probability the game is 'won' in t moves. That's essentially what the function below is for
+
+def gameEndsInTRoundsArray(i, p, N, t): # the only difference between this and the above function is that this return's the whole array such that I can use it to access any index I want
+    state = [0] * (N + 1)
+    state[i] = 1 
+    count = 0 
+    while count < t:
+        newState = [0] * (N + 1)
+        for j in range(1, N): 
+            if state[j] != 0: 
+                try: 
+                    newState[j-1] += (1-p) * state[j]
+                except IndexError:
+                    pass
+                try:
+                    newState[j+1] += (p) * state[j]
+                except IndexError:
+                    pass
+        state = newState
+        count += 1
+    return state 
 
 def simEX(trials, i, p, N): # this is the pretty general monte-carlo simulation
     """
@@ -73,11 +93,47 @@ def simEX(trials, i, p, N): # this is the pretty general monte-carlo simulation
         res.append(count)
     return sum(res)/trials
 
+"""
+so the next step will be to calculate conditional expectation. We want to find the expected number of trials it takes to finish the game given we reach N. In order to do this I will 
+have to find the probability that we finish the game in t steps given that we reach N. Isn't this the same as the probability that we win the game in t steps though? Ok yes let's think
+about how I would find this now. 
+"""
+def probNoLoss(i, p, N, t):
+    # so we are looking for the probability that the game ends in t rounds given that we win the game and do not lose the game
+    # let t be the event that the game ends in t rounds and W be the event that we win the game. In that case we are looking for P(t|W)
+    # This is equal to = P(W|t)P(t) / P(W). Luckily we already have the solutions to all these problems and can call on our other functions in order to solve the problem
+    # Lets start with the top part
+    wGivenT = gameEndsInTRoundsArray(i, p, N, t)
+    numerator = wGivenT[-1]
+    pW = playGame(i, p, N)
+    return (numerator) / pW
+
+def eXNoLoss(i, p, N): # of course I will now have to use more linalg and numpy in order to solve this problem
+    """
+    This function is a bit strange. and I assume it will be harder to implement but it will be a good excersise.
+    So first what I need to do is to find the probability I win a round given I win the entire game. Let's call this P(U|W).
+    this is equal to = P(W|U)P(U) / P(W). We can can call P(W|U) u_i+1 and that's the origal probability of winning when we are at i+1. That is over our original probability or u_i.
+    All together this becomes (p*u_i+1)/u_i. Subsequently for the loss of a round this becomes (q*u_i-1)/u_i. The 'fun' part about this implementation is that the probability changes at every single state.
+    We will of course use linalg for this approach and our handy dandy numPy.
+    """
+    equals = [1] * (N+1)
+    equals[0] = 0
+    equals[-1] = 0
+    equations = [([0] * (N+1)) for _ in range(N+1)]
+    for j in range(1, N):
+        equations[j][j] = 1
+        newProb = (playGame(j+1, p, N) * p) / playGame(j, p, N)
+        newQ = (playGame(j-1, p, N) * (1-p)) / playGame(j, p, N)
+        equations[j][j-1] = -(newQ)
+        equations[j][j+1] = -(newProb)
+    equations[0][0] = 1
+    equations[N][N] = 1
+    a = np.array(equations)
+    b = np.array(equals)
+    solution = np.linalg.solve(a, b)
+    return solution[i]
 
 
-
-            
-        
         
 
 def main():
@@ -85,6 +141,8 @@ def main():
     print(eX(5, .4, 10))
     print(gameEndsInTRounds(2, .6, 6, 2))
     print(simEX(500, 2, .6, 6))
+    print(eXNoLoss(5, .4, 10))
+
 
 if __name__ == "__main__":
     main()
