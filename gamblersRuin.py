@@ -135,6 +135,7 @@ def eXNoLoss(i, p, N): # of course I will now have to use more linalg and numpy 
 
 def simExNoLoss(i, p, N, t):
     # we will no montecarlo simulate the expected number of trials it takes to complete the game by a win
+    # I find the code to be generally straight forward and not require comments.
     res = []
     def winOrLoss(probability):
         return rd.random() < probability
