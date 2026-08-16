@@ -133,6 +133,33 @@ def eXNoLoss(i, p, N): # of course I will now have to use more linalg and numpy 
     solution = np.linalg.solve(a, b)
     return solution[i]
 
+def simExNoLoss(i, p, N, t):
+    # we will no montecarlo simulate the expected number of trials it takes to complete the game by a win
+    res = []
+    def winOrLoss(probability):
+        return rd.random() < probability
+    for j in range(t):
+        at = i
+        count = 0
+        while at < N:
+            if at == 0:
+                count = -1
+                break
+            outcome = winOrLoss(p)
+            if outcome:
+                at += 1
+            else:
+                at -= 1
+            count += 1
+            
+        if count == -1:
+            continue
+        else:
+            res.append(count)
+    return sum(res)/len(res)
+
+        
+
 
         
 
@@ -142,6 +169,7 @@ def main():
     print(gameEndsInTRounds(2, .6, 6, 2))
     print(simEX(500, 2, .6, 6))
     print(eXNoLoss(5, .4, 10))
+    print(simExNoLoss(5, .4, 10, 10000))
 
 
 if __name__ == "__main__":
