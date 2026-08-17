@@ -1,6 +1,5 @@
 # Probability-Engine
 A python project dedicated to the simulation of different probabilistic scenarios that allows for the application of probability theory and analysis. This includes and is not limited to calculating expected value mathematically, deriving expected value through simulation such as monte-carlo, and determining the probability of an event that is completely parametized. In the future I would like to apply deeper probability theory concepts such as markov-chains and code some of the project files in C++. \
-
 For more information on some of the problems solved here visit the corrosponding substack with article proofs and walkthroughs attache below: \
 [Substack](https://substack.com/@finnianfranks)
 
