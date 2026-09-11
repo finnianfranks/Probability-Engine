@@ -1,3 +1,6 @@
+# Disclaimer
+As of 9/10/2026 I am stepping away from this project to apply my energies to something else.
+
 # Probability-Engine
 A python project dedicated to the simulation of different probabilistic scenarios that allows for the application of probability theory and analysis. This includes and is not limited to calculating expected value mathematically, deriving expected value through simulation such as monte-carlo, and determining the probability of an event that is completely parametized. In the future I would like to apply deeper probability theory concepts such as markov-chains and code some of the project files in C++. \
 \
@@ -15,8 +18,6 @@ Next I look to calculate the probability that it takes X number of flips in orde
 # gamblersRuin.py:
 In this file we look at an important problem of probability known as the gamblers ruin problem. The problem has a complicated solution which requires a longer proof and is provided on the substack. In the file to calculate the probability that we beat the game, starting at i, we use the final formula derived from the proof. After that we take a look at the average amount of rounds the game must be played in order to be completed--that is the player reaches 0 or reaches N. We do this using the same type of first step analysis and linalg as in kheads.py. After that we calculate the probability that the game ends in t rounds which sort of extends what we were examining with the expected value calculation before hand. after this we run our experiment under a montecarlo simulation to verify our expected value calculation. We then extend the project further by essentially eliminating the possibility of losing the game and examining the new game under that constraint. In order to do this we use a decent amount of conditional probability and condition away the games in which we lose which allows us to practice some more abstract thinking and manipulation of the base equations. Finally we do Monte-Carlo for this calculation as well. This concludes the gamblers ruin coding analysis unless another interesting route to take the question pops into mind.
 
-# amoeba.py:
-Next I will examine the famous amoeba question since it appears to be recursive like. We will see if that actually comes through then in the implementation.
 
 # Conclusion
-I am marking the conclusion of this project at 5 worthwhile probability questions. After that I will re-evaluate wether it is worth doing more in this framework.
+I am marking the conclusion of this project at 3 worthwhile probability questions. After that I will re-evaluate wether it is worth doing more in this framework.
